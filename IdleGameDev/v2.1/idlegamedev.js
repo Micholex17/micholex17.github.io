@@ -55,36 +55,130 @@ var Options = {
 
 // --- Game ---
 
-RegisterUpgrade("betterMouses", "Better Mouses", 50, UpgradeType.BuildingUpgrade, 2, "mouse", "Mouses are twice effective."); // Building
-RegisterUpgrade("goToCodingSchool", "Go To Coding School", 100, UpgradeType.ClickUpgrade, 1, null, "+1 MpC."); // Click
-RegisterUpgrade("betterKeyboards", "Better Keyboards", 500, UpgradeType.BuildingUpgrade, 2, "keyboard", "Keyboards are twice effective."); // Building
-RegisterUpgrade("readCodingBooks", "Read Coding Books", 1000, UpgradeType.ClickUpgrade, 1, null, "+1 MpC."); // Click
-RegisterUpgrade("evenBetterMouses", "Even Better Mouses", 1500, UpgradeType.BuildingUpgrade, 2, "mouse", "Mouses are twice more effective."); // Building
-RegisterUpgrade("betterMonitors", "Better Monitors", 5000, UpgradeType.BuildingUpgrade, 2, "monitor", "Monitors are twice effective."); // Building
-RegisterUpgrade("evenBetterKeyboards", "Even Better Keyboards", 5500, UpgradeType.BuildingUpgrade, 2, "keyboard", "Keyboards are twice more effective."); // Building
-RegisterUpgrade("betterPcs", "Better PC's", 10000, UpgradeType.BuildingUpgrade, 2, "pc", "PC's are twice effective."); // Building
-RegisterUpgrade("evenBetterMonitors", "Even Better Monitors", 13500, UpgradeType.BuildingUpgrade, 2, "monitor", "Monitors are twice more effective.") // Building
-RegisterUpgrade("watchTutorials", "Watch Tutorials", 15000, UpgradeType.ClickUpgrade, 1, null, "+1 MpC."); // Click
-RegisterUpgrade("eventBetterPcs", "Even Better PC's", 17500, UpgradeType.BuildingUpgrade, 2, "pc", "PC's are twice more effective."); // Building
-RegisterUpgrade("betterServers", "Better Servers", 20000, UpgradeType.BuildingUpgrade, 2, "server", "Servers are twice effective."); // Building
-RegisterUpgrade("trainCodingSkills", "Train Coding Skills", 35000, UpgradeType.ClickUpgrade, 1, null, "+1 MpC."); // Click
-RegisterUpgrade("evenBetterServers", "Even Better Servers", 45000, UpgradeType.BuildingUpgrade, 2, "server", "Servers are twice more effective."); // Building
-RegisterUpgrade("qualifiedJrDevs", "Qualified Jr. Dev's", 50000, UpgradeType.BuildingUpgrade, 2, "jrDev", "Jr. Devs are twice effective."); // Building
-RegisterUpgrade("qualifiedSrDevs", "Qualified Sr. Dev's", 75000, UpgradeType.BuildingUpgrade, 2, "srDev", "Sr. Devs are twice effective."); // Building
-RegisterUpgrade("qualifiedProjectManagers", "Qualified Project Managers", 100000, UpgradeType.BuildingUpgrade, 2, "projectManager", "Project managers are twice effective."); // Building
-RegisterUpgrade("qualifiedManagers", "Qualified Managers", 150000, UpgradeType.BuildingUpgrade, 2, "manager", "Managers are twice effective."); // Building
-SubscribeUpgrades();
+// RegisterUpgrade(id, name, price, upgradeType, upgradeValue, upgradeArg = null, description="No description found");
+/* Ideas:
+Click Upgrades: Go to coding school, Read coding books, Watch tutorials, Practice writing code, Read documentation, Read code samples, Practice making games, Purchase paid programs,
+Ask for help, Create your first games
 
-RegisterBuilding("mouse", "Mouse", 20, 1, "Just a nice mouse. [+1 MpS (each)]");
-RegisterBuilding("keyboard", "Keyboard", 100, 1.5, "For your typing needs. [+1.5 MpS (each)]");
-RegisterBuilding("monitor", "Monitor", 500, 2, "I guess you have to see what you're doing, am i right? [+2 MpS (each)]");
-RegisterBuilding("pc", "PC", 1000, 2.5, "Used to play or make games (and for other stuff, but we'll skip them). [+2.5 MpS (each)]");
-RegisterBuilding("server", "Server", 2500, 3, "You can host your Craftmine server on it! [+3 MpS (each)]");
-RegisterBuilding("jrDev", "Jr. Dev", 5000, 3.5, "A developer starting his/her career. Not the best, but will do the work for you. [+3.5 MpS (each)]");
-RegisterBuilding("srDev", "Sr. Dev", 10000, 4, "Better than Jr. Dev. [+4 MpS (each)");
-RegisterBuilding("projectManager", "Project Manager", 15000, 4.5, "Oversees devs working on the project. [+4.5 MpS (each)]");
-RegisterBuilding("manager", "Manager", 20000, 5, "Oversees all workers. [+5 MpS (each)]");
-SubscribeBuildings();
+Building Upgrades: Better mousepads, Even better mousepads, Best mousepads, Better mouses, Even better mouses, Best mouses, Better keyboards, Even better keyboards, Best keyboards,
+Better monitors, Even better monitors, Best monitors, Better printers, Even better printers, Best printers, Better cameras, Even better cameras, Best cameras,
+Better PC's, Even better PC's, Best PC's, Better motherboards, Even better motherboards, Best motherboards, Better RAM's, Even better RAM's, Best RAM's, Better CPU's, Even better CPU's, Best CPU's,
+Better GPU's, Even better GPU's, Best GPU's, Better interns, Even better interns, Best interns, Better Jr. Dev's, Even better Jr. Dev's, Best Jr. Dev's,
+Better Sr. Dev's, Even better Sr. Dev's, Best Sr. Dev's, Better artists, Even better artists, Best artists, Better 3D artists, Even better 3D artists, Best 3D artists,
+Better voice actors, Even better voice actors, Best voice actors, Better music producers, Even better music producers, Best music producers
+*/
+// Click Upgrades
+RegisterUpgrade("goToCodingSchool", "Go to coding school", 100, UpgradeType.ClickUpgrade, 1, null, "+1 MpC");
+RegisterUpgrade("readCodingBooks", "Read coding books", 200, UpgradeType.ClickUpgrade, 1, null, "+1 MpC");
+RegisterUpgrade("watchTutorials", "Watch tutorials", 300, UpgradeType.ClickUpgrade, 1, null, "+1 MpC");
+RegisterUpgrade("practiceWritingCode", "Practice writing code", 400, UpgradeType.ClickUpgrade, 1, null, "+1 MpC");
+RegisterUpgrade("readDocumentation", "Read documentation", 500, UpgradeType.ClickUpgrade, 1, null, "+1 MpC");
+RegisterUpgrade("readCodeSamples", "Read code samples", 1000, UpgradeType.ClickUpgrade, 2, null, "+2 MpC");
+RegisterUpgrade("practiceMakingGames", "Practice making games", 1500, UpgradeType.ClickUpgrade, 2, null, "+2 MpC");
+RegisterUpgrade("purchasePaidPrograms", "Purchase paid programs", 2000, UpgradeType.ClickUpgrade, 2, null, "+2 MpC");
+RegisterUpgrade("askForHelp", "Ask for help", 2500, UpgradeType.ClickUpgrade, 2, null, "+2 MpC");
+RegisterUpgrade("createYourFirstGames", "Create your first games", 3000, UpgradeType.ClickUpgrade, 2, null, "+2 MpC");
+// Building Upgrades
+RegisterUpgrade("betterMousepads", "Better mousepads", 100, UpgradeType.BuildingUpgrade, 1, "mousepad");
+RegisterUpgrade("evenBetterMousepads", "Even better mousepads", 1000, UpgradeType.BuildingUpgrade, 1, "mousepad");
+RegisterUpgrade("bestMousepads", "Best mousepads", 5000, UpgradeType.BuildingUpgrade, 2, "mousepads");
+
+RegisterUpgrade("betterMouses", "Better mouses", 1000, UpgradeType.BuildingUpgrade, 1, "mouse");
+RegisterUpgrade("evenBetterMouses", "Even better mouses", 5000, UpgradeType.BuildingUpgrade, 1, "mouse");
+RegisterUpgrade("bestMouses", "Best mouses", 10000, UpgradeType.BuildingUpgrade, 2, "mouse");
+
+RegisterUpgrade("betterKeyboards", "Better keyboards", 5000, UpgradeType.BuildingUpgrade, 1, "keyboard");
+RegisterUpgrade("evenBetterKeyboards", "Even better keyboards", 10000, UpgradeType.BuildingUpgrade, 1, "keyboard");
+RegisterUpgrade("bestKeyboards", "Best keyboards", 15000, UpgradeType.BuildingUpgrade, 2, "keyboard");
+
+RegisterUpgrade("betterMonitors", "Better monitors", 10000, UpgradeType.BuildingUpgrade, 1, "monitor");
+RegisterUpgrade("evenBetterMonitors", "Even better monitors", 15000, UpgradeType.BuildingUpgrade, 1, "monitor");
+RegisterUpgrade("bestMonitors", "Best monitors", 25000, UpgradeType.BuildingUpgrade, 2, "monitor");
+
+RegisterUpgrade("betterPrinters", "Better printers", 15000, UpgradeType.BuildingUpgrade, 1, "printer");
+RegisterUpgrade("evenBetterPrinters", "Even better printers", 25000, UpgradeType.BuildingUpgrade, 1, "printer");
+RegisterUpgrade("bestPrinters", "Best printers", 50000, UpgradeType.BuildingUpgrade, 2, "printer");
+
+RegisterUpgrade("betterCameras", "Better cameras", 25000, UpgradeType.BuildingUpgrade, 1, "camera");
+RegisterUpgrade("evenBetterCameras", "Even better cameras", 50000, UpgradeType.BuildingUpgrade, 1, "camera");
+RegisterUpgrade("bestCameras", "Best cameras", 75000, UpgradeType.BuildingUpgrade, 2, "camera");
+
+RegisterUpgrade("betterPcs", "Better PC's", 50000, UpgradeType.BuildingUpgrade, 1, "pc");
+RegisterUpgrade("evenBetterPcs", "Even better PC's", 75000, UpgradeType.BuildingUpgrade, 1, "pc");
+RegisterUpgrade("bestPcs", "Best PC's", 100000, UpgradeType.BuildingUpgrade, 2, "pc");
+
+RegisterUpgrade("betterMotherboards", "Better motherboards", 75000, UpgradeType.BuildingUpgrade, 1, "motherboard");
+RegisterUpgrade("evenBetterMotherboards", "Even better motherboards", 100000, UpgradeType.BuildingUpgrade, 1, "motherboard");
+RegisterUpgrade("bestMotherboards", "Best motherboards", 105000, UpgradeType.BuildingUpgrade, 2, "motherboard");
+
+RegisterUpgrade("betterRams", "Better RAM's", 100000, UpgradeType.BuildingUpgrade, 1, "ram");
+RegisterUpgrade("evenBetterRams", "Even better RAM's", 105000, UpgradeType.BuildingUpgrade, 1, "ram");
+RegisterUpgrade("bestRams", "Best RAM's", 125000, UpgradeType.BuildingUpgrade, 2, "ram");
+
+RegisterUpgrade("betterCpus", "Better CPU's", 105000, UpgradeType.BuildingUpgrade, 1, "cpu");
+RegisterUpgrade("evenBetterCpus", "Even better CPU's", 125000, UpgradeType.BuildingUpgrade, 1, "cpu");
+RegisterUpgrade("bestCpus", "Best CPU's", 150000, UpgradeType.BuildingUpgrade, 2, "cpu");
+
+RegisterUpgrade("betterGpus","Better GPU's",125000,UpgradeType.BuildingUpgrade,1,"gpu");
+RegisterUpgrade("evenBetterGpus","Even better GPU's",150000,UpgradeType.BuildingUpgrade,1,"gpu");
+RegisterUpgrade("bestGpus","Best GPU's",200000,UpgradeType.BuildingUpgrade,2,"gpu");
+
+RegisterUpgrade("betterInterns","Better interns",150000,UpgradeType.BuildingUpgrade,1,"intern");
+RegisterUpgrade("evenBetterInterns","Even better interns",200000,UpgradeType.BuildingUpgrade,1,"intern");
+RegisterUpgrade("bestInterns","Best interns",250000,UpgradeType.BuildingUpgrade,2,"intern");
+
+RegisterUpgrade("betterJrDevs","Better Jr. Dev's",200000,UpgradeType.BuildingUpgrade,1,"jrDev");
+RegisterUpgrade("evenBetterJrDevs","Even better Jr. Dev's",250000,UpgradeType.BuildingUpgrade,1,"jrDev");
+RegisterUpgrade("bestJrDevs","Best Jr. Dev's",300000,UpgradeType.BuildingUpgrade,2,"jrDev");
+
+RegisterUpgrade("betterSrDevs","Better Sr. Dev's",250000,UpgradeType.BuildingUpgrade,1,"srDev");
+RegisterUpgrade("evenBetterSrDevs","Even better Sr. Dev's",300000,UpgradeType.BuildingUpgrade,1,"srDev");
+RegisterUpgrade("bestSrDevs","Best Sr. Dev's",350000,UpgradeType.BuildingUpgrade,2,"srDev");
+
+RegisterUpgrade("betterArtists","Better artists",300000,UpgradeType.BuildingUpgrade,1,"artist");
+RegisterUpgrade("evenBetterArtists","Even better artists",350000,UpgradeType.BuildingUpgrade,1,"artist");
+RegisterUpgrade("bestArtists","Best artists",400000,UpgradeType.BuildingUpgrade,2,"artist");
+
+RegisterUpgrade("better3dArtists","Better 3D artists",350000,UpgradeType.BuildingUpgrade,1,"3dArtist");
+RegisterUpgrade("evenBetter3dArtists","Even better 3D artists",400000,UpgradeType.BuildingUpgrade,1,"3dArtist");
+RegisterUpgrade("best3dArtists","Best 3D artists",450000,UpgradeType.BuildingUpgrade,2,"3dArtist");
+
+RegisterUpgrade("betterVoiceActors","Better voice actors",400000,UpgradeType.BuildingUpgrade,1,"voiceActor");
+RegisterUpgrade("evenBetterVoiceActors","Even better voice actors",450000,UpgradeType.BuildingUpgrade,1,"voiceActor");
+RegisterUpgrade("bestVoiceActors","Best voice actors",500000,UpgradeType.BuildingUpgrade,2,"voiceActor");
+
+RegisterUpgrade("betterMusicProducers","Better music producers",450000,UpgradeType.BuildingUpgrade,1,"musicProducer");
+RegisterUpgrade("evenBetterMusicProducers","Even better music producers",500000,UpgradeType.BuildingUpgrade,1,"musicProducer");
+RegisterUpgrade("bestMusicProducers","Best music producers",550000,UpgradeType.BuildingUpgrade,2,"musicProducer");
+
+RegisterUpgrade("betterProjectManagers","Better project managers",500000,UpgradeType.BuildingUpgrade,1,"projectManager");
+RegisterUpgrade("evenBetterProjectManagers","Even better project managers",550000,UpgradeType.BuildingUpgrade,1,"projectManager");
+RegisterUpgrade("bestProjectManagers","Best project managers",600000,UpgradeType.BuildingUpgrade,2,"projectManager");
+SubscribeUpgrades(); // MANDATORY!
+
+// RegisterBuilding(id, name, price, value, description="No description found")
+/* Ideas: Mousepad, Mouse, Keyboard, Monitor, Printer, Camera, PC, Motherboard, RAM, CPU, GPU, Intern, Jr. Dev, Sr. Dev, Artist, 3D Artist, Voice Actor, Music Producer, Project Manager
+*/
+RegisterBuilding("mousepad", "Mousepad", 10, 1, "+1 MpS");
+RegisterBuilding("mouse", "Mouse", 25, 1.5, "+1.5 MpS");
+RegisterBuilding("keyboard", "Keyboard", 50, 2, "+2 MpS");
+RegisterBuilding("monitor", "Monitor", 75, 2.5, "+2.5 MpS");
+RegisterBuilding("printer", "Printer", 100, 3, "+3 MpS");
+RegisterBuilding("camera", "Camera", 150, 3.5, "+3.5 MpS");
+RegisterBuilding("pc", "PC", 200, 4, "+4 MpS");
+RegisterBuilding("motherboard", "Motherboard", 250, 4.5, "+4.5 MpS");
+RegisterBuilding("ram", "RAM", 300, 5, "+5 MpS");
+RegisterBuilding("cpu", "CPU", 350, 5.5, "+5.5 MpS");
+RegisterBuilding("gpu", "GPU", 400, 6, "+6 MpS");
+RegisterBuilding("intern", "Intern", 450, 6.5, "+6.5 MpS");
+RegisterBuilding("jrDev", "Jr. Dev", 500, 7, "+7 MpS");
+RegisterBuilding("srDev", "Sr. DEv", 1000, 7.5, "+7.5 MpS");
+RegisterBuilding("artist", "Artist", 1500, 8, "+8 MpS");
+RegisterBuilding("3dArtist", "3D Artist", 2000, 8.5, "+8.5 MpS");
+RegisterBuilding("voiceActor", "Voice Actor", 2500, 9, "+9 MpS");
+RegisterBuilding("musicProducer", "Music Producer", 3000, 9.5, "+9.5 MpS");
+RegisterBuilding("projectManager", "Project Manager", 3500, 10, "+10 MpS");
+SubscribeBuildings(); // MANDATORY!
 
 function Start() // Runs when site is loaded
 {
@@ -97,9 +191,15 @@ function Start() // Runs when site is loaded
         });
 
     GenerateHTMLItems();
+
+    var x = __getCookie("cookiesacknowledged");
+    if (x != "true")
+    {
+        document.getElementById("cookiesnotice").style.display = "block";
+    }
 }
 
-function Update() // Updates every 1/4 second (250 milliseconds)
+function Update() // Runs every 1/4 second (250 milliseconds)
 {
     document.title = "$" + __abbrNum(money) + " - Idle Game Dev";
 
@@ -137,8 +237,43 @@ function Update() // Updates every 1/4 second (250 milliseconds)
                 shopItem.className = "PCShopBuildingUnavailable";
             }
         });
+
+    subscribedUpgrades.forEach(e =>
+        {
+            var item = document.getElementById("PCShopUpgrade_"+e.id);
+            if (e.visible == true)
+            {
+                item.style.display = "block";
+            }
+            else
+            {
+                item.style.display = "none";
+            }
+
+            if (money >= e.price)
+            {
+                e.visible = true;
+            }
+        });
+    subscribedBuildings.forEach(e =>
+        {
+            var item = document.getElementById("PCShopBuilding_"+e.id);
+            if (e.visible == true)
+            {
+                item.style.display = "block";
+            }
+            else
+            {
+                item.style.display = "none";
+            }
+
+            if (money >= e.price)
+            {
+                e.visible = true;
+            }
+        });
 }
-function FixedUpdate() // Updates every second
+function FixedUpdate() // Runs every second (1000 milliseconds)
 {
     MpS = 0;
     subscribedBuildings.forEach(elem =>
@@ -146,13 +281,13 @@ function FixedUpdate() // Updates every second
             var earned = elem.value * elem.ownedAmount;
             subscribedUpgrades.forEach(elem2 =>
                 {
-                    if (elem2.owned)
+                    if (elem2.upgradeType == UpgradeType.BuildingUpgrade)
                     {
-                        if (elem2.upgradeType == UpgradeType.BuildingUpgrade)
+                        if (elem2.upgradeArg == elem.id)
                         {
-                            if (elem2.upgradeArg == elem.id)
+                            if (elem2.owned)
                             {
-                                earned *= elem2.upgradeValue;
+                                earned *= elem2.upgradeValue + 1;
                             }
                         }
                     }
@@ -173,7 +308,7 @@ function FixedUpdate() // Updates every second
             }
         });
 }
-function QuickUpdate() // Updates every 100 milliseconds
+function QuickUpdate() // Runs every 100 milliseconds
 {
     document.getElementById("moneyDisplay").innerHTML = "Money: $" + __abbrNum(money);
     document.getElementById("mPCDisplay").innerHTML = "Money per Click (MpC): " + __abbrNum(MpC);
@@ -184,7 +319,7 @@ function QuickUpdate() // Updates every 100 milliseconds
             elem.price += (elem.ogprice * 0.35) * elem.ownedAmount;
         });
 }
-function SlowUpdate() // Updates every 30 seconds
+function SlowUpdate() // Runs every half a minute (30 seconds)
 {
     _saveSysSave();
 }
@@ -226,6 +361,7 @@ function SubscribeUpgrades()
                         upgradeValue: elem.upgradeValue,
                         upgradeArg: elem.upgradeArg,
                         description: elem.description,
+                        visible: false,
                         owned: false
                     }
                     subscribedUpgrades.push(subbedUpgrade);
@@ -259,6 +395,7 @@ function SubscribeBuildings()
                         price: elem.price,
                         value: elem.value,
                         description: elem.description,
+                        visible: false,
                         ownedAmount: 0
                     }
                     subscribedBuildings.push(subbedBuilding);
@@ -341,7 +478,7 @@ function DisplayUpgradeInfo(name, desc)
 
     namedis.innerHTML = name;
     descdis.innerHTML = desc;
-    box.removeAttribute("hidden");
+    box.style.display = "block";
 }
 function HideUpgradeInfo()
 {
@@ -351,7 +488,7 @@ function HideUpgradeInfo()
 
     namedis.innerHTML = "";
     descdis.innerHTML = "";
-    box.setAttribute("hidden", true);
+    box.style.display = "none";
 }
 function DisplayBuildingInfo(name, desc)
 {
@@ -361,7 +498,7 @@ function DisplayBuildingInfo(name, desc)
 
     namedis.innerHTML = name;
     descdis.innerHTML = desc;
-    box.removeAttribute("hidden");
+    box.style.display = "block";
 }
 function HideBuildingInfo()
 {
@@ -371,7 +508,7 @@ function HideBuildingInfo()
 
     namedis.innerHTML = "";
     descdis.innerHTML = "";
-    box.setAttribute("hidden", true);
+    box.style.display = "none";
 }
 
 function GenerateHTMLItems()
@@ -387,6 +524,7 @@ function GenerateHTMLItems()
                 BuyUpgrade(elem.id);
             }
             a.setAttribute("draggable", false);
+            a.style.display = "none";
             a.addEventListener("mouseover", function(){DisplayUpgradeInfo(elem.name, elem.description);});
             a.addEventListener("mouseout", function(){HideUpgradeInfo();});
             a.innerHTML = elem.name + " [$#]";
@@ -403,6 +541,7 @@ function GenerateHTMLItems()
                 BuyBuilding(elem.id);
             }
             a.setAttribute("draggable", false);
+            a.style.display = "none";
             a.addEventListener("mouseover", function(){DisplayBuildingInfo(elem.name, elem.description);});
             a.addEventListener("mouseout", function(){HideBuildingInfo();})
             a.innerHTML = elem.name + " [$#] (# Owned)";
@@ -424,16 +563,22 @@ setInterval(FixedUpdate, 1000);
 setInterval(QuickUpdate, 100);
 setInterval(SlowUpdate, 30000);
 
+/*
+I AM AWARE THE SAVE SYSTEM IS PROBABLY INEFFICIENT AS HELL,
+BUT IT'S THE BEST I COULD HAVE WRITTEN FOR NOW
+*/
 function _saveSysSave()
 {
-    __setCookie("OLD_money", money);
+    __setCookie("money", money);
     subscribedUpgrades.forEach(elem =>
         {
-            __setCookie("OLD_upgrade_" + elem.id + "_owned", elem.owned);
+            __setCookie("upgrade_" + elem.id + "_owned", elem.owned);
+            __setCookie("upgrade_" + elem.id + "_visible", elem.visible);
         });
     subscribedBuildings.forEach(elem =>
         {
-            __setCookie("OLD_building_"+elem.id+"_ownedAmount", elem.ownedAmount);
+            __setCookie("building_"+elem.id+"_ownedAmount", elem.ownedAmount);
+            __setCookie("building_"+elem.id+"_visible", elem.visible);
         });
 }
 function _saveSysLoad()
@@ -457,6 +602,15 @@ function _saveSysLoad()
             {
                 elem.owned = false;
             }
+            var visible = __getCookie("upgrade_"+elem.id+"_visible");
+            if (visible == "true")
+            {
+                elem.visible = true;
+            }
+            else
+            {
+                elem.visible = false;
+            }
         });
     subscribedBuildings.forEach(elem =>
         {
@@ -467,6 +621,15 @@ function _saveSysLoad()
             else
             {
                 elem.ownedAmount = 0;
+            }
+            var visible = __getCookie("building_"+elem.id+"_visible");
+            if (visible == "true")
+            {
+                elem.visible = true;
+            }
+            else
+            {
+                elem.visible = false;
             }
         });
 }
@@ -479,12 +642,15 @@ function _dataReset()
         subscribedUpgrades.forEach(elem =>
             {
                 elem.owned = false;
+                elem.visible = false;
             });
         subscribedBuildings.forEach(elem =>
             {
                 elem.ownedAmount = 0;
+                elem.visible = false;
             });
-        __clearCookies();
+        //__clearCookies(); // is no work for some reason
+        _saveSysSave();
     }
 }
 
@@ -493,19 +659,19 @@ function _toggleOptionsWindow()
     document.getElementById("option_sounds").checked = Options.Sounds;
 
     var e = document.getElementById("options_window");
-    if (e.hasAttribute("hidden"))
+    if (e.style.display == "none")
     {
-        e.removeAttribute("hidden");
+        e.style.display = "block";
     }
     else
     {
-        e.setAttribute("hidden", true);
+        e.style.display = "none";
     }
 }
 function _applyOptions()
 {
     Options.Sounds = document.getElementById("option_sounds").checked;
-    __setCookie("OLD_option_sounds", Options.Sounds);
+    __setCookie("option_sounds", Options.Sounds);
     _toggleOptionsWindow();
 }
 function _loadSettings()
@@ -573,8 +739,10 @@ function __cookieExists(cname)
         return true;
     }
 }
-function __clearCookies()
+function __clearCookies() // is no work :<
 {
+    var cookiesack = __getCookie("cookiesacknowledged");
+
     const cookies = document.cookie.split(";");
     for (let i = 0; i < cookies.length; i++)
     {
@@ -583,6 +751,16 @@ function __clearCookies()
         const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
         document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
     }
+
+    if (cookiesack == "true")
+    {
+        __closecookiesnotice();
+    }
+}
+function __closecookiesnotice()
+{
+    __setCookie("cookiesacknowledged", true);
+    document.getElementById("cookiesnotice").style.display = "none";
 }
 function __stringToInt(s)
 {
