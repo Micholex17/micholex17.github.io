@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untitled Clicker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left"> <!-- Clicker -->
+            <p id="points_display">0 points</p>
+            <a onclick="Clicker.Clicked();Testsound();"><img id="clicker" src="assets/images/clicker.png" draggable="false"></a>
+        </div>
+        <div class="center"> <!-- Menus etc. -->
+            <div class="center_buttons">
+                <a class="center_button" id="center_home_button">Home</a>
+                <a class="center_button" id="center_stats_button">Stats</a>
+                <a class="center_button" id="center_options_button">Options</a>
+            </div>
+            <div class="sections">
+                <div class="home" id="home"> <!-- Default -->
+                    <span style="font-size:2vw;margin-bottom:.25vw;" id="home_title">Home</span>
+                    <span>Patch notes</span>
+                    <div class="home_patchnotes">
+                        <div id="home_patchnotes">
+                            <ul><span class="patchnotes_version">ALPHA-1.0.0</span>
+                                <li>Game created</li>
+                                <li>Added base functionality</li>
+                                <li>Added base design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="stats" id="stats">
+                    <span style="font-size: 2vw;margin-bottom:.25vw;" id="stats_title">Stats</span>
+                    <span id="stats_points">Points: 0</span>
+                    <span id="stats_ownedUpgrades">Owned Upgrades: 0</span>
+                    <span id="stats_ownedBuildings">Owned Buildings: 0</span>
+                </div>
+                <div class="options" id="options">
+                    <span style="font-size:2vw;margin-bottom:.25vw;" id="options_title">Options</span>
+                    <select id="lang_select">
+                        <option value="en_US">English</option>
+                        <option value="pl_PL">Polish (Polski)</option>
+                    </select>
+                    <label>Sounds <input type="checkbox" checked></label>
+                </div>
+            </div>
+        </div>
+        <div class="right"> <!-- Shop -->
+            <p id="upgrades_shop_title">Upgrades</p>
+            <div class="upgrades_shop" id="upgrades_shop">
+            </div>
+            <p id="buildings_shop_title">Buildings</p>
+            <div class="buildings_shop" id="buildings_shop">
+            </div>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script type="module" src="locale.js"></script>
+</body>
+</html>

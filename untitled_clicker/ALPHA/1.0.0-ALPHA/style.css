@@ -1,0 +1,268 @@
+* {
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+body
+{
+    background-color: black;
+    margin: 0;
+    color: white;
+}
+
+html, body
+{
+    height: 100%;
+}
+
+.container
+{
+    margin: auto;
+    width: 98vw;
+    height: 98vh;
+    background-color: rgb(20, 20, 20);
+    border: solid 1px white;
+    display: flex;
+    flex-direction: row;
+}
+
+.left, .center, .right
+{
+    width: 33.33%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+}
+
+.left
+{
+    background-color: rgb(54, 54, 54);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.85vw;
+}
+
+.center
+{
+    background-color: rgb(67,67,67);
+    flex-direction: column;
+    align-items: center;
+}
+
+.center_buttons
+{
+    display: flex;
+    flex-direction: row;
+    gap: .35vw;
+    margin-bottom: 1vw;
+}
+
+.center_button
+{
+    cursor: pointer;
+    font-size: 1.25vw;
+    padding: .15vw;
+    padding-left: .5vw;
+    padding-right: .5vw;
+    background-color: rgb(85, 85, 85);
+}
+
+.home
+{
+    display: flex;
+    flex-direction: column;
+    font-size: 1vw;
+    flex-basis: 800%;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.home_patchnotes
+{
+    color: black;
+    background-color: white;
+    padding: 1vw;
+    border-radius: 15px;
+    width: 18vw;
+    height: 10.5vw;
+}
+#home_patchnotes
+{
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.patchnotes_version
+{
+    text-decoration: underline;
+}
+
+.stats
+{
+    display: flex;
+    flex-direction: column;
+    font-size: 1vw;
+}
+
+.options
+{
+    display: flex;
+    flex-direction: column;
+    font-size: 1vw;
+    gap: .5vw;
+}
+.options select
+{
+    width: 12.5vw;
+    font-size: 1vw;
+}
+
+.right
+{
+    background-color: rgb(86,86,86);
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Upgrades Shop Section */
+
+.upgrades_shop
+{
+    width: 90%;
+    height: 40%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5vw;
+    padding-bottom: 1px;
+}
+
+.upgrades_shop::-webkit-scrollbar
+{
+    display: none;
+}
+
+#upgrades_shop_title
+{
+    font-size: 2vw;
+    margin: 0;
+    text-decoration: underline;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+    position: sticky;
+}
+
+.upgrade
+{
+    display: flex;
+    border: 2px solid black;
+    border-bottom-right-radius: 15px;
+    font-size: 1.15vw;
+    align-items: center;
+    width: 80%;
+    cursor: pointer;
+    transition: 0.1s linear;
+}
+
+.upgrade:hover
+{
+    box-shadow: 10px 10px 15px -5px black;
+    font-size: 1.2vw;
+}
+
+.upgrade:active
+{
+    box-shadow: 5px 5px 15px -5px black;
+    font-size: 1.18vw;
+}
+
+.upgrade img
+{
+    width: 2.75vw;
+    height: 2.75vw;
+    margin-right: .35vw;
+}
+
+/* Buildings Shop Section */
+
+.buildings_shop
+{
+    width: 90%;
+    height: 40%;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5vw;
+    padding-bottom: 1px;
+}
+
+.buildings_shop::-webkit-scrollbar
+{
+    display: none;
+}
+
+#buildings_shop_title
+{
+    font-size: 2vw;
+    margin: 0;
+    text-decoration: underline;
+    margin-top: 1vw;
+    margin-bottom: 1vw;;
+}
+
+.building
+{
+    display: flex;
+    border: 2px solid black;
+    border-bottom-right-radius: 15px;
+    font-size: 1.15vw;
+    align-items: center;
+    width: 80%;
+    cursor: pointer;
+    transition: 0.1s linear;
+}
+
+.building:hover
+{
+    box-shadow: 10px 10px 15px -5px black;
+    font-size: 1.2vw;
+}
+
+.building:active
+{
+    box-shadow: 5px 5px 15px -5px black;
+    font-size: 1.18vw;
+}
+
+.building img
+{
+    width: 2.75vw;
+    height: 2.75vw;
+    margin-right: .35vw;
+}
+
+/* Clicker */
+
+#clicker
+{
+    width: 15vw;
+    height: 15vw;
+    transition: ease 0.1s;
+    cursor: pointer;
+}
+
+#clicker:hover
+{
+    width: 16vw;
+    height: 16vw;
+}
+
+#clicker:active
+{
+    width: 14vw;
+    height: 14vw;
+}
