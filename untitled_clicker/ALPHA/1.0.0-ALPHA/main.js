@@ -33,6 +33,66 @@ Utilities.ReadJSONFile = function()
 
 // ---
 
+const ErrorHandler = {};
+ErrorHandler.element = document.querySelector(".error_message_display");
+ErrorHandler.Show = function(err)
+{
+    this.element.innerHTML = err;
+    this.element.style.display = "";
+}
+ErrorHandler.Hide = function()
+{
+    this.element.style.display = "none";
+}
+
+const ItemInfoHandler = {};
+ItemInfoHandler.element = document.querySelector(".item_info");
+ItemInfoHandler.name = document.getElementById("item_info_name");
+ItemInfoHandler.cost = document.getElementById("item_info_cost");
+ItemInfoHandler.owned = document.getElementById("item_info_owned");
+ItemInfoHandler.description = document.getElementById("item_info_description");
+ItemInfoHandler.Show = function(item)
+{
+    if (item instanceof Upgrade || item instanceof Building)
+    {
+        this.name.innerHTML = Game.locale[item.id];
+        this.cost.innerHTML = `($${item.cost})`;
+        if (item instanceof Building)
+        {
+            this.owned.innerHTML = `[${item.owned}]`;
+        }
+        else
+        {
+            this.owned.innerHTML = "";
+        }
+        this.description.innerHTML = Game.locale[`${item.id}.description`];
+    }
+    this.element.style.display = "";
+}
+ItemInfoHandler.Update = function(item)
+{
+    if (item instanceof Upgrade || item instanceof Building)
+    {
+        this.name.innerHTML = Game.locale[item.id];
+        this.cost.innerHTML = `($${item.cost})`;
+        if (item instanceof Building)
+        {
+            this.owned.innerHTML = `[${item.owned}]`;
+        }
+        else
+        {
+            this.owned.innerHTML = "";
+        }
+        this.description.innerHTML = Game.locale[`${item.id}.description`];
+    }
+}
+ItemInfoHandler.Hide = function()
+{
+    this.element.style.display = "none";
+}
+
+// ---
+
 let Settings = new Map();
 Settings.set("lang", "en_US");
 
@@ -43,12 +103,13 @@ const UpgradeType = {
 
 class Upgrade
 {
-    constructor(id, cost, upgradeType, power=0)
+    constructor(id, cost, upgradeType, power=0, arg="")
     {
         this.id = id;
         this.cost = cost;
         this.upgradeType = upgradeType;
         this.power = power;
+        this.arg = arg;
 
         this.owned = false;
 
@@ -91,18 +152,20 @@ class Building
     }
 }
 
-let Game = {};
+const Game = {};
 
 Game.locale = {};
 
 Game.points = 0;
 
 Game.upgrades = [ // <--- Upgrades
-    new Upgrade("test_upgrade", 20)
+    new Upgrade("test_upgrade", 20, UpgradeType.BoostClicks, 1),
+    new Upgrade("test_upgrade_ii", 100, UpgradeType.BoostBuilding, 1, "test_building")
 ];
 
 Game.buildings = [ // <--- Buildings
-    new Building("test_building", 10, 1)
+    new Building("test_building", 10, 1),
+    new Building("test_building_ii", 50, 2)
 ];
 
 Game.upgradesShop = document.getElementById("upgrades_shop");
@@ -119,41 +182,8 @@ Game.Awake = function()
     Game.locale = __GetLanguage__(Settings.get("lang"));
     this.LoadLanguage();
 
-    Game.buildings.forEach((e) =>
-    {
-        let elem = document.createElement("a");
-        elem.className = "building";
-        elem.id = `bldng-${e.id}`;
-
-        let imgPath = `assets/images/building/${e.id}.png`;
-
-        elem.innerHTML = `<img src="${imgPath}">${Game.locale[e.id]} ($${e.cost}) [0]`;
-
-        elem.onclick = () =>
-        {
-            if (Game.points >= e.cost)
-            {
-                Game.points -= e.cost;
-                e.Buy();
-                Game.Update(); Game.ShopUpdate();
-            }
-        }
-
-        Game.buildingsShop.appendChild(elem);
-
-        if (e._visible == false)
-        {
-            if (e.owned > 0 || Game.points >= e.cost)
-            {
-                elem.style.display = "";
-                e._visible = true;
-            }
-            else
-            {
-                elem.style.display = "none";
-            }
-        }
-    });
+    ErrorHandler.Hide();
+    ItemInfoHandler.Hide();
 
     Game.upgrades.forEach((e) =>
     {
@@ -163,16 +193,30 @@ Game.Awake = function()
 
         let imgPath = `assets/images/upgrade/${e.id}.png`;
 
-        elem.innerHTML = `<img src="${imgPath}">${Game.locale[e.id]} ($${e.cost})`;
+        elem.innerHTML = `<img src="${imgPath}">`;
 
         elem.onclick = () =>
         {
-            if (Game.points >= (e.cost * 0.9) && e.owned == false)
+            if (Game.points >= e.cost && e.owned == false)
             {
                 Game.points -= e.cost;
                 e.Buy();
-                Game.Update(); Game.ShopUpdate();
+                Game.Update(); Game.ShopUpdate(); ItemInfoHandler.Hide();
             }
+            else
+            {
+                ErrorHandler.Show(Game.locale["error.not_enough_points"]);
+            }
+        }
+
+        elem.onmouseenter = () =>
+        {
+            ItemInfoHandler.Show(e);
+        }
+
+        elem.onmouseleave = () =>
+        {
+            ItemInfoHandler.Hide();
         }
 
         Game.upgradesShop.appendChild(elem);
@@ -197,6 +241,55 @@ Game.Awake = function()
             }
         }
     })
+
+    Game.buildings.forEach((e) =>
+    {
+        let elem = document.createElement("a");
+        elem.className = "building";
+        elem.id = `bldng-${e.id}`;
+
+        let imgPath = `assets/images/building/${e.id}.png`;
+
+        elem.innerHTML = `<img src="${imgPath}">${Game.locale[e.id]} ($${e.cost}) [0]`;
+
+        elem.onclick = () =>
+        {
+            if (Game.points >= e.cost)
+            {
+                Game.points -= e.cost;
+                e.Buy();
+                Game.Update(); Game.ShopUpdate(); ItemInfoHandler.Update(e);
+            }
+            else
+            {
+                ErrorHandler.Show(Game.locale["error.not_enough_points"]);
+            }
+        }
+
+        elem.onmouseenter = () =>
+        {
+            ItemInfoHandler.Show(e);
+        }
+        elem.onmouseleave = () =>
+        {
+            ItemInfoHandler.Hide();
+        }
+
+        Game.buildingsShop.appendChild(elem);
+
+        if (e._visible == false)
+        {
+            if (e.owned > 0 || Game.points >= e.cost)
+            {
+                elem.style.display = "";
+                e._visible = true;
+            }
+            else
+            {
+                elem.style.display = "none";
+            }
+        }
+    });
 
     Center.buttons.forEach((value, key) =>
     {
@@ -229,22 +322,76 @@ Game.Update = function()
     // Stats
     const stats_title = document.getElementById("stats_title");
     const stats_points = document.getElementById("stats_points");
+    const stats_clicks = document.getElementById("stats_clicks");
     const stats_ownedUpgrades = document.getElementById("stats_ownedUpgrades");
     const stats_ownedBuildings = document.getElementById("stats_ownedBuildings");
 
     stats_title.innerHTML = Game.locale["stats"];
     stats_points.innerHTML = `${Game.locale["stats.points"]}: ${Game.points}`;
-    stats_ownedUpgrades.innerHTML = `${Game.locale["stats.ownedUpgrades"]}: b`;
-    stats_ownedBuildings.innerHTML = `${Game.locale["stats.ownedBuildings"]}: c`;
+    stats_clicks.innerHTML = `${Game.locale["stats.clicks"]}: ${Clicker.clickedTimes}`;
+
+    let ownedUpgrades = 0;
+    Game.upgrades.forEach(e => 
+    {
+        if (e.owned)
+        {
+            ownedUpgrades++;
+        }
+    });
+
+    stats_ownedUpgrades.innerHTML = `${Game.locale["stats.ownedUpgrades"]}: ${ownedUpgrades}`;
+
+    let ownedBuildings = 0;
+    Game.buildings.forEach(e =>
+    {
+        ownedBuildings += e.owned;
+    });
+
+    stats_ownedBuildings.innerHTML = `${Game.locale["stats.ownedBuildings"]}: ${ownedBuildings}`;
 
     // Options
     const options_title = document.getElementById("options_title");
+    const options_sounds = document.getElementById("options_sounds");
 
     options_title.innerHTML = Game.locale["options"];
+    options_sounds.innerHTML = Game.locale["options.sounds"];
 }
 
 Game.ShopUpdate = function()
 {
+    Game.upgrades.forEach((e) =>
+    {
+        let elem = document.getElementById(`upgrd-${e.id}`);
+        if (elem == null)
+        {
+            return;
+        }
+
+        let imgPath = `assets/images/upgrade/${e.id}.png`;
+
+        elem.innerHTML = `<img src="${imgPath}">`;
+
+        if (e._visible == false)
+        {
+            if (e.owned == false && Game.points >= (e.cost * 0.9))
+            {
+                elem.style.display = "";
+                e._visible = true;
+            }
+            else
+            {
+                elem.style.display = "none";
+            }
+        }
+        else
+        {
+            if (e.owned == true)
+            {
+                elem.style.display = "none";
+            }
+        }
+    });
+
     Game.buildings.forEach((e) =>
     {
         let elem = document.getElementById(`bldng-${e.id}`);
@@ -265,39 +412,6 @@ Game.ShopUpdate = function()
                 e._visible = true;
             }
             else
-            {
-                elem.style.display = "none";
-            }
-        }
-    });
-
-    Game.upgrades.forEach((e) =>
-    {
-        let elem = document.getElementById(`upgrd-${e.id}`);
-        if (elem == null)
-        {
-            return;
-        }
-
-        let imgPath = `assets/images/upgrade/${e.id}.png`;
-
-        elem.innerHTML = `<img src="${imgPath}">${Game.locale[e.id]} ($${e.cost})`;
-
-        if (e._visible == false)
-        {
-            if (e.owned == false && Game.points >= (e.cost * 0.9))
-            {
-                elem.style.display = "";
-                e._visible = true;
-            }
-            else
-            {
-                elem.style.display = "none";
-            }
-        }
-        else
-        {
-            if (e.owned == true)
             {
                 elem.style.display = "none";
             }
@@ -346,7 +460,22 @@ Game.BuildingsEarn = function()
 {
     let sum = 0;
     Game.buildings.forEach((e) => {
-        sum += e.power * e.owned;
+        let amount = e.power * e.owned;
+        let multiplier = 1;
+        Game.upgrades.forEach(e2 =>
+        {
+            if (e2.owned)
+            {
+                if (e2.upgradeType = UpgradeType.BoostBuilding)
+                {
+                    if (e2.arg == e.id)
+                    {
+                        multiplier += e2.power;
+                    }
+                }
+            }
+        });
+        sum += amount * multiplier;
     });
     Game.AddPoints(sum);
 }
@@ -386,10 +515,50 @@ Clicker.Clicked = function()
 {
     Clicker.clickedTimes += 1;
 
-    Game.AddPoints(1);
+    let amountToAdd = 1;
+
+    let boostClicksMultiplier = 1;
+
+    Game.upgrades.forEach(e =>
+    {
+        if (e.owned)
+        {
+            if (e.upgradeType = UpgradeType.BoostClicks)
+            {
+                boostClicksMultiplier += e.power;
+            }
+        }
+    });
+
+    amountToAdd *= boostClicksMultiplier;
+
+    Game.AddPoints(amountToAdd);
     
     Game.Update(); Game.ShopUpdate();
 }
+
+/*
+Save progress into a single string, eg.
+3809|0|0|1|0|1|1|true|false|false|false|true|false
+
+When loading, split them up into multiple arrays:
+- Core items
+- Upgrades
+- Buildings
+
+Do it all based on how many of these items are, eg.
+
+Loading process:
+- split string into a single array
+- split array into multiple smaller arrays based on how many
+of each items should be in there
+    eg. 3 core items, 3 first item should be moved to new array
+and deleted from original
+    2 upgrades to load, 2 first items (after removing previous)
+should be moved to new array
+
+and so on
+*/
 
 let SaveSystem = {};
 

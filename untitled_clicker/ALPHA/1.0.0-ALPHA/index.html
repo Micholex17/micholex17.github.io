@@ -7,10 +7,19 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="error_message_display" onclick="ErrorHandler.Hide()">
+        <span>Error</span>
+    </div>
+    <div class="item_info">
+        <span style="font-size: 1.35vw;text-decoration: underline;" id="item_info_name">Item name</span>
+        <span style="font-size: .85vw;text-decoration: underline;color:lightgreen;" id="item_info_cost">(Item cost)</span>
+        <span style="font-size: .85vw;text-decoration: underline;" id="item_info_owned">[Owned Amount]</span>
+        <span style="display: block;font-size: 1vw;margin-top: 1vw;" id="item_info_description">Item description</span>
+    </div>
     <div class="container">
         <div class="left"> <!-- Clicker -->
             <p id="points_display">0 points</p>
-            <a onclick="Clicker.Clicked();Testsound();"><img id="clicker" src="assets/images/clicker.png" draggable="false"></a>
+            <a onclick="Clicker.Clicked();"><img id="clicker" src="assets/images/clicker.png" draggable="false"></a>
         </div>
         <div class="center"> <!-- Menus etc. -->
             <div class="center_buttons">
@@ -21,13 +30,15 @@
             <div class="sections">
                 <div class="home" id="home"> <!-- Default -->
                     <span style="font-size:2vw;margin-bottom:.25vw;" id="home_title">Home</span>
-                    <span>Patch notes</span>
+                    <span>Patch notes (english only)</span>
                     <div class="home_patchnotes">
                         <div id="home_patchnotes">
-                            <ul><span class="patchnotes_version">ALPHA-1.0.0</span>
+                            <ul><span class="patchnotes_version">1.0.0-ALPHA > 26.02.2024</span>
                                 <li>Game created</li>
                                 <li>Added base functionality</li>
                                 <li>Added base design</li>
+                                <li>Added 2 test upgrades</li>
+                                <li>Added 2 test buildings</li>
                             </ul>
                         </div>
                     </div>
@@ -35,6 +46,7 @@
                 <div class="stats" id="stats">
                     <span style="font-size: 2vw;margin-bottom:.25vw;" id="stats_title">Stats</span>
                     <span id="stats_points">Points: 0</span>
+                    <span id="stats_clicks">Clicks: 0</span>
                     <span id="stats_ownedUpgrades">Owned Upgrades: 0</span>
                     <span id="stats_ownedBuildings">Owned Buildings: 0</span>
                 </div>
@@ -42,9 +54,10 @@
                     <span style="font-size:2vw;margin-bottom:.25vw;" id="options_title">Options</span>
                     <select id="lang_select">
                         <option value="en_US">English</option>
-                        <option value="pl_PL">Polish (Polski)</option>
                     </select>
-                    <label>Sounds <input type="checkbox" checked></label>
+                    <div>
+                        <label id="options_sounds" for="options_soundsCheckbox">Sounds</label><input type="checkbox" id="options_soundsCheckbox" checked>
+                    </div>
                 </div>
             </div>
         </div>
