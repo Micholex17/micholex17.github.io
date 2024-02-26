@@ -1,0 +1,22 @@
+{
+    "dummy": "DummyPL",
+
+    "points": "punkty",
+
+    "shop.upgrades.title": "Ulepszenia",
+    "shop.buildings.title": "Budynki",
+
+    "home": "Strona Główna",
+
+    "stats": "Statystyki",
+    "stats.points": "Punkty",
+    "stats.clicks": "Klikni\u0119cia",
+    "stats.ownedUpgrades": "Posiadane Ulepszenia",
+    "stats.ownedBuildings": "Posiadane Budynki",
+
+    "options": "Opcje",
+
+    "test_upgrade": "Testowe Ulepszenie",
+    
+    "test_buildings": "Testowy Budynek"
+}
