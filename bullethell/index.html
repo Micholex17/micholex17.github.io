@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <audio id="megalovania" loop>
+        <source src="assets/mus_zz_megalovania.ogg" type="audio/ogg">
+    </audio>
     <div class="container">
         <div class="menu">
             <h1>Choose difficulty:</h1>
@@ -14,6 +17,7 @@
             <a href="javascript:void(0);" onclick="ChooseDifficulty('difficulty.level.easy');">Easy</a>
             <a href="javascript:void(0);" onclick="ChooseDifficulty('difficulty.level.medium');">Medium</a>
             <a href="javascript:void(0);" onclick="ChooseDifficulty('difficulty.level.hard');">Hard</a>
+            <a href="javascript:void(0);" onclick="ChooseDifficulty('difficulty.level.extreme');">Extreme</a>
             <h2 id="chosenDifficulty">Chosen:</h2>
             <a href="javascript:void(0);" onclick="StartGame()">Start</a>
         </div>

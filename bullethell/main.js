@@ -16,8 +16,10 @@ let ctx = bullet_board.getContext("2d")
 const DifficultyLevels = {
     Peaceful: 0.75,
     Easy: 1,
-    Medium: 1.25,
-    Hard: 1.50
+    Medium: 1.35,
+    Hard: 1.65,
+    Extreme: 1.87,
+    sans: 2.5
 }
 
 const chosenDifficultyDisplay = document.getElementById("chosenDifficulty")
@@ -60,6 +62,8 @@ function GetDifficultyString(arg)
             return "Medium"
         case DifficultyLevels.Hard:
             return "Hard"
+        case DifficultyLevels.Extreme:
+            return "Extreme"
     }
 }
 
@@ -79,6 +83,8 @@ function ChooseDifficulty(arg)
         case "difficulty.level.hard":
             g_difficulty = DifficultyLevels.Hard
             break
+        case "difficulty.level.extreme":
+            g_difficulty = DifficultyLevels.Extreme
     }
 
     chosenDifficultyDisplay.innerHTML = `Chosen: ${GetDifficultyString(g_difficulty)}`
@@ -96,6 +102,13 @@ function StartGame()
         clear_board()
         Bullets.clear()
         g_gameActive = true
+        
+        let timeBetweenBullets = Math.floor(-500 + (1150 / g_difficulty))
+        console.log(timeBetweenBullets)
+        clearInterval(Game_FireRandomBullet)
+        setInterval(Game_FireRandomBullet, timeBetweenBullets)
+
+        music_play()
     }
     else
     {
@@ -105,11 +118,12 @@ function StartGame()
 
 function GameOver()
 {
+    music_stop()
     g_gameActive = false
     ___game.style.display = "none"
     ___lose.style.display = "block"
     loseDifficultyDisplay.innerHTML = `Difficulty: ${GetDifficultyString(g_difficulty)}`
-    loseTimeDisplay.innerHTML = `You survived ${time}`
+    loseTimeDisplay.innerHTML = `You got ${time} points`
 }
 
 function GoToMenu()
@@ -123,7 +137,9 @@ function GoToMenu()
 const BulletType = {
     Normal: "bullet.type.normal",
     Fast: "bullet.type.fast",
-    Strong: "bullet.type.strong"
+    StayToAvoid: "bullet.type.sans",
+    MoveToAvoid: "bullet.type.notsans",
+    Healing: "bullet.type.heal"
 }
 
 const BulletDirection = {
@@ -146,10 +162,13 @@ class Bullet {
         this.y = 0
         this.speed = 1
         this.damage = 1
+        this.color = ""
 
         switch(type)
         {
             case BulletType.Normal:
+            case BulletType.StayToAvoid:
+            case BulletType.MoveToAvoid:
                 this.speed = 5
                 this.damage = 5
                 break
@@ -160,6 +179,29 @@ class Bullet {
             case BulletType.Strong:
                 this.speed = 3
                 this.damage = 7
+                break
+            case BulletType.Healing:
+                this.speed = 2
+                this.damage = -10
+                break
+        }
+
+        switch (this.type)
+        {
+            case BulletType.Normal:
+                this.color = "white"
+                break
+            case BulletType.Fast:
+                this.color = "yellow"
+                break
+            case BulletType.StayToAvoid:
+                this.color = "blue"
+                break
+            case BulletType.MoveToAvoid:
+                this.color = "orange"
+                break
+            case BulletType.Healing:
+                this.color = "lime"
                 break
         }
     }
@@ -209,21 +251,6 @@ class Bullet {
 
     Fire()
     {
-        let clr = ""
-
-        switch (this.type)
-        {
-            case BulletType.Normal:
-                clr = "white"
-                break
-            case BulletType.Fast:
-                clr = "yellow"
-                break
-            case BulletType.Strong:
-                clr = "blue"
-                break
-        }
-
         this.bulletId = c_generateRandomString(25)
         const bullet = {
             id: this.bulletId,
@@ -232,8 +259,9 @@ class Bullet {
             y: this.y,
             speed: this.speed,
             damage: this.damage,
-            size: 20 * g_difficulty,
-            color: clr,
+            size: 15 * g_difficulty,
+            type: this.type,
+            color: this.color,
             GetHitbox: function()
             {
                 let bulletHitbox = {
@@ -252,7 +280,6 @@ function DestroyBullet(id)
     Bullets.delete(id)
 }
 
-
 // Player ---
 
 const PlayerCharacter = {
@@ -264,12 +291,15 @@ const PlayerCharacter = {
     speed: 7
 }
 
-let playerHP = 100
+const maxPlayerHP = 100
+let playerHP = maxPlayerHP
 
 let goLeft = false
 let goUp = false
 let goRight = false
 let goDown = false
+
+let isMoving = false
 
 let hitCooldown = false
 
@@ -286,20 +316,56 @@ function detectCollision()
 {
     if (!hitCooldown)
     {
+        // Get player's hitbox
         let playerHitbox = getPlayerHitbox()
         for (let [key, value] of Bullets) {
             let bulletHitbox = value.GetHitbox()
 
+            // Calculate distance between bullet's hitboxes and player's
             let d = Math.sqrt( ( (playerHitbox.x - bulletHitbox.x) * (playerHitbox.x - bulletHitbox.x) ) + ( (playerHitbox.y - bulletHitbox.y) * (playerHitbox.y - bulletHitbox.y) ) )
 
             if (d < (value.size * 0.75))
             {
-                playerHP -= Math.floor(value.damage * g_difficulty)
+                if (value.type == BulletType.StayToAvoid)
+                {
+                    if (isMoving)
+                    {
+                        playerHP -= Math.floor(value.damage * g_difficulty)
+                        doHitCooldown()
+                    }
+                }
+                else if (value.type == BulletType.MoveToAvoid)
+                {
+                    if (!isMoving)
+                    {
+                        playerHP -= Math.floor(value.damage * g_difficulty)
+                        doHitCooldown()
+                    }
+                }
+                else
+                {
+                    playerHP -= Math.floor(value.damage * g_difficulty)
+                    if (value.type != BulletType.Healing)
+                    {
+                        doHitCooldown()
+                    }
+                }
+
+                // Immediately destroy bullet if its healing type
+                if (value.type == BulletType.Healing)
+                {
+                    DestroyBullet(value.id)
+                }
+
+                // If player's HP falls to 0 or below, end game
                 if (playerHP <= 0)
                 {
                     GameOver()
                 }
-                doHitCooldown()
+                else if (playerHP > maxPlayerHP)
+                {
+                    playerHP = maxPlayerHP
+                }
             }
         }
     }
@@ -432,6 +498,15 @@ function __Update__()
             }
         }
 
+        if (!goLeft && !goRight && !goUp && !goDown)
+        {
+            isMoving = false
+        }
+        else
+        {
+            isMoving = true
+        }
+
         for (let [key, value] of Bullets)
         {
             switch(value.direction)
@@ -475,7 +550,7 @@ function __Update__()
         time += 1
 
         hpDisplay.innerHTML = `HP ${playerHP}`
-        timeDisplay.innerHTML = `Time survived: ${time}`
+        timeDisplay.innerHTML = `Points: ${time}`
     }
 }
 setInterval(__Update__, 33.33)
@@ -484,11 +559,13 @@ setInterval(__Update__, 33.33)
 
 const normalBullet = new Bullet()
 const fastBullet = new Bullet(BulletType.Fast)
-const strongBullet = new Bullet(BulletType.Strong)
+const stayToAvoidBullet = new Bullet(BulletType.StayToAvoid)
+const moveToAvoidBullet = new Bullet(BulletType.MoveToAvoid)
+const healingBullet = new Bullet(BulletType.Healing)
 
 function Game_FireRandomBullet()
 {
-    if (g_gameActive)
+    if (g_gameActive && !debug_DMODE)
     {
         let rand = Math.floor(Math.random() * 100) + 1
         if (rand <= 50)
@@ -497,45 +574,106 @@ function Game_FireRandomBullet()
             normalBullet.PickPosition()
             normalBullet.Fire()
         }
-        else if (rand > 50 && rand <= 90)
+        else if (rand > 50 && rand <= 71)
         {
             fastBullet.PickDirection()
             fastBullet.PickPosition()
             fastBullet.Fire()
         }
-        else if (rand > 90)
+        else if (rand > 71 && rand <= 85)
         {
-            strongBullet.PickDirection()
-            strongBullet.PickPosition()
-            strongBullet.Fire()
+            stayToAvoidBullet.PickDirection()
+            stayToAvoidBullet.PickPosition()
+            stayToAvoidBullet.Fire()
+        }
+        else if (rand > 85 && rand <= 99)
+        {
+            moveToAvoidBullet.PickDirection()
+            moveToAvoidBullet.PickPosition()
+            moveToAvoidBullet.Fire()
+        }
+        else if (rand > 99 && rand <= 100)
+        {
+            healingBullet.PickDirection()
+            healingBullet.PickPosition()
+            healingBullet.Fire()
         }
     }
 }
-setInterval(Game_FireRandomBullet, 150)
 
 // Debug ---
 
-const debug_testBullet = new Bullet()
-const debug_testBullet2 = new Bullet(BulletType.Fast)
-const debug_testBullet3 = new Bullet(BulletType.Strong)
+let debug_DMODE = false
+
+function Debug_StartGame()
+{
+    debug_DMODE = true
+    StartGame()
+}
+
+const debug_normalBullet = new Bullet()
+const debug_fastBullet = new Bullet(BulletType.Fast)
+const debug_sansBullet = new Bullet(BulletType.StayToAvoid)
+const debug_notsansBullet = new Bullet(BulletType.MoveToAvoid)
+const debug_healingBullet = new Bullet(BulletType.Healing)
 
 document.addEventListener("keydown", (e)=>{
-    if (e.key == "1")
+    if (g_gameActive)
     {
-        debug_testBullet.PickDirection()
-        debug_testBullet.PickPosition()
-        debug_testBullet.Fire()
+        if (debug_DMODE)
+        {
+            if (e.key == "1")
+            {
+                debug_normalBullet.PickDirection()
+                debug_normalBullet.PickPosition()
+                debug_normalBullet.Fire()
+            }
+            else if (e.key == "2")
+            {
+                debug_fastBullet.PickDirection()
+                debug_fastBullet.PickPosition()
+                debug_fastBullet.Fire()
+            }
+            else if (e.key == "3")
+            {
+                debug_sansBullet.PickDirection()
+                debug_sansBullet.PickPosition()
+                debug_sansBullet.Fire()
+            }
+            else if (e.key == "4")
+            {
+                debug_notsansBullet.PickDirection()
+                debug_notsansBullet.PickPosition()
+                debug_notsansBullet.Fire()
+            }
+            else if (e.key == "5")
+            {
+                debug_healingBullet.PickDirection()
+                debug_healingBullet.PickPosition()
+                debug_healingBullet.Fire()
+            }
+        }
     }
-    else if (e.key == "2")
+    else
     {
-        debug_testBullet2.PickDirection()
-        debug_testBullet2.PickPosition()
-        debug_testBullet2.Fire()
-    }
-    else if (e.key == "3")
-    {
-        debug_testBullet3.PickDirection()
-        debug_testBullet3.PickPosition()
-        debug_testBullet3.Fire()
+        if (e.key == "Home")
+        {
+            Debug_StartGame()
+        }
     }
 })
+
+// Music
+
+const megalovania = document.getElementById("megalovania")
+
+function music_play()
+{
+    megalovania.volume = 0.5
+    megalovania.play()
+}
+function music_stop()
+{
+    megalovania.pause()
+    megalovania.currentTime = 0
+}
