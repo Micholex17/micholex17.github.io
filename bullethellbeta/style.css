@@ -1,0 +1,52 @@
+* {
+    user-select: none;
+}
+
+body
+{
+    background-color: black;
+    color: white;
+    margin: 0;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 2px;
+}
+
+#CREDITS
+{
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.container
+{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#bullet_board
+{
+    border: 1px solid white;
+}
+
+.menu
+{
+    display: block;
+}
+
+.game
+{
+    display: none;
+}
+
+.lose
+{
+    display: none;
+}
