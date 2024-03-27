@@ -1,25 +1,36 @@
+// Textures
+
+const img_heart = new Image(); img_heart.src = '.\\assets\\heart.png'
+const img_heart_hurt = new Image(); img_heart_hurt.src = ".\\assets\\heaurt.png"
+
+// const img_normalBullet_old = new Image(); img_normalBullet_old.src= ".\\assets\\bullets\\old\\normalBullet.png" // old, unused
+// const img_fastBullet_old = new Image(); img_fastBullet_old.src = ".\\assets\\bullets\\old\\fastBullet.png" // old, unused
+// const img_sansBullet_old = new Image(); img_sansBullet_old.src = ".\\assets\\bullets\\old\\sansBullet.png" // old, unused
+// const img_notsansBullet_old = new Image(); img_notsansBullet_old.src = ".\\assets\\bullets\\old\\notsansBullet.png" // old, unused
+
+const img_healingBullet = new Image(); img_healingBullet.src = ".\\assets\\bullets\\healingBullet.png"
+
+const img_normalBullet_right = new Image(); img_normalBullet_right.src = ".\\assets\\bullets\\bullet_normal_right.png"
+const img_normalBullet_left = new Image(); img_normalBullet_left.src = ".\\assets\\bullets\\bullet_normal_left.png"
+const img_normalBullet_down = new Image(); img_normalBullet_down.src = ".\\assets\\bullets\\bullet_normal_down.png"
+const img_normalBullet_up = new Image(); img_normalBullet_up.src = ".\\assets\\bullets\\bullet_normal_up.png"
+
+const img_fastBullet_right = new Image(); img_fastBullet_right.src = ".\\assets\\bullets\\bullet_fast_right.png"
+const img_fastBullet_left = new Image(); img_fastBullet_left.src = ".\\assets\\bullets\\bullet_fast_left.png"
+const img_fastBullet_down = new Image(); img_fastBullet_down.src = ".\\assets\\bullets\\bullet_fast_down.png"
+const img_fastBullet_up = new Image(); img_fastBullet_up.src = ".\\assets\\bullets\\bullet_fast_up.png"
+
+const img_sansBullet_right = new Image(); img_sansBullet_right.src = ".\\assets\\bullets\\bullet_sans_right.png"
+const img_sansBullet_left = new Image(); img_sansBullet_left.src = ".\\assets\\bullets\\bullet_sans_left.png"
+const img_sansBullet_down = new Image(); img_sansBullet_down.src = ".\\assets\\bullets\\bullet_sans_down.png"
+const img_sansBullet_up = new Image(); img_sansBullet_up.src = ".\\assets\\bullets\\bullet_sans_up.png"
+
+const img_notsansBullet_right = new Image(); img_notsansBullet_right.src = ".\\assets\\bullets\\bullet_notsans_right.png"
+const img_notsansBullet_left = new Image(); img_notsansBullet_left.src = ".\\assets\\bullets\\bullet_notsans_left.png"
+const img_notsansBullet_down = new Image(); img_notsansBullet_down.src = ".\\assets\\bullets\\bullet_notsans_down.png"
+const img_notsansBullet_up = new Image(); img_notsansBullet_up.src = ".\\assets\\bullets\\bullet_notsans_up.png"
+
 // Core variables ---
-
-const img_heart = new Image()
-img_heart.src = '.\\assets\\heart.png'
-
-const img_heart_hurt = new Image()
-img_heart_hurt.src = ".\\assets\\heaurt.png"
-
-const img_normalBullet = new Image()
-img_normalBullet.src= ".\\assets\\bullets\\normalBullet.png"
-
-const img_fastBullet = new Image()
-img_fastBullet.src = ".\\assets\\bullets\\fastBullet.png"
-
-const img_sansBullet = new Image()
-img_sansBullet.src = ".\\assets\\bullets\\sansBullet.png"
-
-const img_notsansBullet = new Image()
-img_notsansBullet.src = ".\\assets\\bullets\\notsansBullet.png"
-
-const img_healingBullet = new Image()
-img_healingBullet.src = ".\\assets\\bullets\\healingBullet.png"
 
 const ___menu = document.querySelector(".menu")
 const ___game = document.querySelector(".game")
@@ -29,12 +40,11 @@ const bullet_board = document.getElementById("bullet_board")
 let ctx = bullet_board.getContext("2d")
 
 const DifficultyLevels = {
-    Peaceful: 0.75,
+    Peaceful: 0.95,
     Easy: 1,
-    Medium: 1.35,
-    Hard: 1.65,
-    Extreme: 1.87,
-    sans: 2.5
+    Medium: 1.34,
+    Hard: 1.71,
+    Extreme: 1.89
 }
 
 const chosenDifficultyDisplay = document.getElementById("chosenDifficulty")
@@ -45,9 +55,9 @@ let g_difficulty = null
 
 const hpDisplay = document.getElementById("hpDisplay")
 
-const timeDisplay = document.getElementById("timeDisplay")
-const loseTimeDisplay = document.getElementById("loseTime")
-let time = 0
+const pointsDisplay = document.getElementById("pointsDisplay")
+const losePointsDisplay = document.getElementById("losePoints")
+let points = 0
 
 let g_gameActive = false
 
@@ -112,16 +122,18 @@ function StartGame()
         ___menu.style.display = "none"
         ___game.style.display = "block"
         difficultyInGameDisplay.innerHTML = `Difficulty: ${GetDifficultyString(g_difficulty)}`
-        time = 0
-        playerHP = 100
+        points = 0
+        playerHP = maxPlayerHP
         clear_board()
         Bullets.clear()
         g_gameActive = true
         
         let timeBetweenBullets = Math.floor(-500 + (1150 / g_difficulty))
-        console.log(timeBetweenBullets)
-        clearInterval(Game_FireRandomBullet)
-        setInterval(Game_FireRandomBullet, timeBetweenBullets)
+        if (randomBulletsInterval)
+        {
+            clearInterval(randomBulletsInterval)
+        }
+        randomBulletsInterval = setInterval(Game_FireRandomBullet, timeBetweenBullets)
 
         music_play()
     }
@@ -133,12 +145,13 @@ function StartGame()
 
 function GameOver()
 {
+    clearInterval(Game_FireRandomBullet)
     music_stop()
     g_gameActive = false
     ___game.style.display = "none"
     ___lose.style.display = "block"
     loseDifficultyDisplay.innerHTML = `Difficulty: ${GetDifficultyString(g_difficulty)}`
-    loseTimeDisplay.innerHTML = `You got ${time} points`
+    losePointsDisplay.innerHTML = `You got ${points} points`
 }
 
 function GoToMenu()
@@ -206,23 +219,23 @@ class Bullet {
         {
             case BulletType.Normal:
                 //this.color = "white"
-                this.texture = img_normalBullet
+                //this.texture = img_normalBullet_old
                 break
             case BulletType.Fast:
                 //this.color = "yellow"
-                this.texture = img_fastBullet
+                //this.texture = img_fastBullet_old
                 break
             case BulletType.StayToAvoid:
                 //this.color = "blue"
-                this.texture = img_sansBullet
+                //this.texture = img_sansBullet_old
                 break
             case BulletType.MoveToAvoid:
                 //this.color = "orange"
-                this.texture = img_notsansBullet
+                //this.texture = img_notsansBullet_old
                 break
             case BulletType.Healing:
                 //this.color = "lime"
-                this.texture = img_healingBullet
+                //this.texture = img_healingBullet
                 break
         }
     }
@@ -234,15 +247,75 @@ class Bullet {
         {
             case 1:
                 this.direction = BulletDirection.LeftToRight
+                switch (this.type)
+                {
+                    case BulletType.Normal:
+                        this.texture = img_normalBullet_right
+                        break
+                    case BulletType.Fast:
+                        this.texture = img_fastBullet_right
+                        break
+                    case BulletType.StayToAvoid:
+                        this.texture = img_sansBullet_right
+                        break
+                    case BulletType.MoveToAvoid:
+                        this.texture = img_notsansBullet_right
+                        break
+                }
                 break
             case 2:
                 this.direction = BulletDirection.RightToLeft
+                switch (this.type)
+                {
+                    case BulletType.Normal:
+                        this.texture = img_normalBullet_left
+                        break
+                    case BulletType.Fast:
+                        this.texture = img_fastBullet_left
+                        break
+                    case BulletType.StayToAvoid:
+                        this.texture = img_sansBullet_left
+                        break
+                    case BulletType.MoveToAvoid:
+                        this.texture = img_notsansBullet_left
+                        break
+                }
                 break
             case 3:
                 this.direction = BulletDirection.TopToBottom
+                switch (this.type)
+                {
+                    case BulletType.Normal:
+                        this.texture = img_normalBullet_down
+                        break
+                    case BulletType.Fast:
+                        this.texture = img_fastBullet_down
+                        break
+                    case BulletType.StayToAvoid:
+                        this.texture = img_sansBullet_down
+                        break
+                    case BulletType.MoveToAvoid:
+                        this.texture = img_notsansBullet_down
+                        break
+                }
                 break
             case 4:
                 this.direction = BulletDirection.BottomToTop
+                switch (this.type)
+                {
+                    case BulletType.Normal:
+                        this.texture = img_normalBullet_up
+                        break
+                    case BulletType.Fast:
+                        this.texture = img_fastBullet_up
+                        break
+                    case BulletType.StayToAvoid:
+                        this.texture = img_sansBullet_up
+                        break
+                    case BulletType.MoveToAvoid:
+                        this.texture = img_notsansBullet_up
+                        break
+                }
                 break
         }
     }
@@ -313,7 +386,7 @@ const PlayerCharacter = {
     speed: 7
 }
 
-const maxPlayerHP = 100
+const maxPlayerHP = 92
 let playerHP = maxPlayerHP
 
 let goLeft = false
@@ -353,6 +426,7 @@ function detectCollision()
                     if (isMoving)
                     {
                         playerHP -= Math.floor(value.damage * g_difficulty)
+                        sound_play(snd_damaged)
                         doHitCooldown()
                     }
                 }
@@ -361,6 +435,7 @@ function detectCollision()
                     if (!isMoving)
                     {
                         playerHP -= Math.floor(value.damage * g_difficulty)
+                        sound_play(snd_damaged)
                         doHitCooldown()
                     }
                 }
@@ -369,7 +444,12 @@ function detectCollision()
                     playerHP -= Math.floor(value.damage * g_difficulty)
                     if (value.type != BulletType.Healing)
                     {
+                        sound_play(snd_damaged)
                         doHitCooldown()
+                    }
+                    else
+                    {
+                        sound_play(snd_heal)
                     }
                 }
 
@@ -391,6 +471,29 @@ function detectCollision()
             }
         }
     }
+    else
+    {
+        let playerHitbox = getPlayerHitbox()
+
+        for (let [key, value] of Bullets)
+        {
+            let bulletHitbox = value.GetHitbox()
+            let d = Math.sqrt( ( (playerHitbox.x - bulletHitbox.x) * (playerHitbox.x - bulletHitbox.x) ) + ( (playerHitbox.y - bulletHitbox.y) * (playerHitbox.y - bulletHitbox.y) ) )
+            if (d < (value.size * 0.75))
+            {
+                if (value.type == BulletType.Healing)
+                {
+                    playerHP -= Math.floor(value.damage * g_difficulty)
+                    sound_play(snd_heal)
+                    DestroyBullet(value.id)
+                    if (playerHP > maxPlayerHP)
+                    {
+                        playerHP = maxPlayerHP
+                    }
+                }
+            }
+        }
+    }
 }
 
 const delay = ms => new Promise(res => setTimeout(res, ms))
@@ -399,7 +502,7 @@ async function doHitCooldown()
     hitCooldown = true
     //PlayerCharacter.color = "darkred"
     PlayerCharacter.texture = img_heart_hurt
-    await delay(2000)
+    await delay(1500)
     hitCooldown = false
     //PlayerCharacter.color = "red"
     PlayerCharacter.texture = img_heart
@@ -572,14 +675,14 @@ function __Update__()
         }
 
         clear_board()
-        render_Player()
         render_Bullets()
+        render_Player()
         detectCollision()
 
-        time += 1
+        points += 1
 
         hpDisplay.innerHTML = `HP ${playerHP}`
-        timeDisplay.innerHTML = `Points: ${time}`
+        pointsDisplay.innerHTML = `Points: ${points}`
     }
 }
 setInterval(__Update__, 33.33)
@@ -629,6 +732,8 @@ function Game_FireRandomBullet()
         }
     }
 }
+
+let randomBulletsInterval = null
 
 // Debug ---
 
@@ -691,6 +796,16 @@ document.addEventListener("keydown", (e)=>{
         }
     }
 })
+
+// Sounds
+
+const snd_damaged = document.getElementById("snd_damaged")
+const snd_heal = document.getElementById("snd_heal")
+
+function sound_play(sound)
+{
+    sound.play()
+}
 
 // Music
 

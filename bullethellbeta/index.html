@@ -10,6 +10,12 @@
     <audio id="megalovania" loop>
         <source src="assets/mus_zz_megalovania.ogg" type="audio/ogg">
     </audio>
+    <audio id="snd_damaged">
+        <source src="assets/damaged.ogg" type="audio/ogg">
+    </audio>
+    <audio id="snd_heal">
+        <source src="assets/heal.ogg" type="audio/ogg">
+    </audio>
     <div class="container">
         <div class="menu">
             <h1>Choose difficulty:</h1>
@@ -27,12 +33,12 @@
                 <canvas id="bullet_board" width="500" height="450"></canvas>
             </div>
             <h3 id="hpDisplay">HP: 50</h3>
-            <h3 id="timeDisplay">Time survived:</h3>
+            <h3 id="pointsDisplay">Points:</h3>
         </div>
         <div class="lose">
             <h2>You lost</h2>
             <h2 id="loseDifficulty"></h2>
-            <h2 id="loseTime">Survived ...</h2>
+            <h2 id="losePoints">You got ... points</h2>
             <a href="javascript:void(0);" onclick="GoToMenu()">Go To Menu</a>
         </div>
     </div>
