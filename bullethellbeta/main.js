@@ -814,6 +814,10 @@ const megalovania = document.getElementById("megalovania")
 function music_play()
 {
     megalovania.volume = 0.5
+    if (document.getElementById("muteMusicCheckbox").checked)
+    {
+        megalovania.volume = 0
+    }
     megalovania.play()
 }
 function music_stop()
