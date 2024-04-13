@@ -199,7 +199,6 @@ nav a:active
     height: 1%;
     cursor: pointer;
     transition: 75ms;
-    box-shadow: 5px 5px 5px 3px black;
     background-color: black;
 }
 .card .info .links img:hover
