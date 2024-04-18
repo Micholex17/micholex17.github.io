@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Project/PSI/Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="shallow_info">
+                <img src="images/img_avatar.png" draggable="false" onclick="navbarLink('About')">
+                <a href="javascript:void(0);" onclick="navbarLink('About')">Michał Gąsiorowski</a>
+            </div>
+            <div class="links">
+                <a href="javascript:void(0);" onclick="navbarLink('About')">About</a>
+                <a href="javascript:void(0);" onclick="navbarLink('Projects')">Projects</a>
+                <a href="javascript:void(0);" onclick="navbarLink('Skills')">Skills</a>
+                <a href="javascript:void(0);" onclick="navbarLink('Contact')">Contact</a>
+            </div>
+            <a id="menu_icon" href="javascript:toggle_nav_menu();"><img src="images/menu_icon.png"></a>
+        </nav>
+
+        <div class="nav_menu" id="nav_menu" style="display: none;">
+            <a href="javascript:void(0);" onclick="navbarLink('About')">About</a>
+            <a href="javascript:void(0);" onclick="navbarLink('Projects')">Projects</a>
+            <a href="javascript:void(0);" onclick="navbarLink('Skills')">Skills</a>
+            <a href="javascript:void(0);" onclick="navbarLink('Contact')">Contact</a>
+        </div>
+
+        <div class="card">
+            <img src="images/img_avatar.png" draggable="false">
+            <div class="info">
+                <span>Full Stack Developer</span>
+                <span>Michał Gąsiorowski</span>
+                <div class="links">
+                    <img src="images/logo_x.jpeg" draggable="false">
+                    <img src="images/logo_linkedin.png" draggable="false">
+                    <img src="images/logo_github.png" draggable="false">
+                    <img src="images/logo_facebook.png" draggable="false">
+                </div>
+            </div>
+        </div>
+
+        <div class="header_with_line" id="projects_header">
+            <span>Projects</span>
+        </div>
+        <h4 style="text-align: center;">Note: only works on pc</h4>
+        <div class="projects">
+            <div class="project">
+                <a href="https://micholex17.github.io/bullethellbeta/index.html" target="_blank">
+                    <img src="images/project_one.png" draggable="false">
+                    <span>Bullet Hell</span>
+                    <span class="creation_date">Made: 2024-03-26</span>
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://micholex17.github.io/untitled_clicker/ALPHA/1.0.0-ALPHA/index.html" target="_blank">
+                    <img src="images/project_two.png" draggable="false">
+                    <span>Untitled Clicker</span>
+                    <span class="creation_date">Made: 2024-02-25</span>
+                </a>
+            </div>
+            <div class="project">
+                <a href="https://micholex17.github.io/areyoudumb/index.html" target="_blank">
+                    <img src="images/project_three.png" draggable="false">
+                    <span>Are you dumb (joke)</span>
+                    <span class="creation_date">Made: 2024-03-10</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="header_with_line" id="skills_header">
+            <span>Skills</span>
+        </div>
+
+        <div class="skills">
+            <div class="skill">
+                <span>JavaScript</span>
+                <div class="skillProgressBar">
+                    <div class="skillProgress">66%</div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>C++</span>
+                <div class="skillProgressBar">
+                    <div class="skillProgress">30%</div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>C#</span>
+                <div class="skillProgressBar">
+                    <div class="skillProgress">67%</div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>Java</span>
+                <div class="skillProgressBar">
+                    <div class="skillProgress">33%</div>
+                </div>
+            </div>
+            <div class="skill">
+                <span>C</span>
+                <div class="skillProgressBar">
+                    <div class="skillProgress">14%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="header_with_line" id="contact_header">
+            <span>Contact</span>
+        </div>
+
+        <div class="contact">
+            <span>E-Mail: contact@mail.com</span>
+            <span>Instagram: @username</span>
+            <span>Facebook: Michał Gąsiorowski</span>
+        </div>
+    </div>
+
+
+    <script src="main.js"></script>
+</body>
+</html>
