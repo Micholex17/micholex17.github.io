@@ -1,0 +1,118 @@
+{
+    "en": {
+        "search": "Search",
+
+        "all_weapons": "All Weapons",
+        "pistols": "Pistols",
+        "rifles": "Rifles",
+        "smgs": "SMGs",
+        "heavy": "Heavy",
+        "gloves": "Gloves",
+        "knives": "Knives",
+
+        "any": "Any Team",
+        "both_teams": "Both Teams",
+        "counter-terrorists": "Counter-Terrorist",
+        "terrorists": "Terrorists",
+
+        "stattrak": "Stattrak",
+        "souvenir": "Souvenir",
+
+        "rarity": "Rarity",
+        "rarity_common": "Consumer Grade",
+        "rarity_uncommon": "Industrial Grade",
+        "rarity_rare": "Mil-Spec",
+        "rarity_mythical": "Restricted",
+        "rarity_legendary": "Classified",
+        "rarity_ancient": "Covert",
+
+        "available_in_crates": "Available in crates"
+    },
+    "pl": {
+        "search": "Szukaj",
+
+        "all_weapons": "Wszystkie bronie",
+        "pistols": "Pistolety",
+        "rifles": "Karabiny",
+        "smgs": "PM-y",
+        "heavy": "Ciężkie",
+        "gloves": "Rękawice",
+        "knives": "Noże",
+
+        "any": "Jakakolwiek drużyna",
+        "both_teams": "Obie drużyny",
+        "counter-terrorists": "Antyterroryści",
+        "terrorists": "Terroryści",
+
+        "stattrak": "Stattrak",
+        "souvenir": "Pamiątka",
+
+        "rarity": "Rzadkość",
+        "rarity_common": "konsumenckiej jakości",
+        "rarity_uncommon": "przemysłowej jakości",
+        "rarity_rare": "wojskowej jakości",
+        "rarity_mythical": "spoza obiegu",
+        "rarity_legendary": "klasy \u0022poufne\u0022",
+        "rarity_ancient": "klasy \u0022tajne\u0022",
+
+        "available_in_crates": "Dostępne w skrzyniach"
+    },
+    "de": {
+        "search": "Suchen",
+
+        "all_weapons": "Alle Waffen",
+        "pistols": "Pistolen",
+        "rifles": "Gewehre",
+        "smgs": "MPs",
+        "heavy": "Schwer",
+        "gloves": "Handschuhe",
+        "knives": "Messer",
+
+        "any": "Jeder Team",
+        "both_teams": "Beide Teams",
+        "counter-terrorists": "Antiterroreinheit",
+        "terrorists": "Terroristen",
+
+        "stattrak": "Stattrak",
+        "souvenir": "Souvenir",
+
+        "rarity": "Seltenheit",
+        "rarity_common": "Verbraucherklasse",
+        "rarity_uncommon": "Industriequalität",
+        "rarity_rare": "Militärstandard",
+        "rarity_mythical": "Limitiert",
+        "rarity_legendary": "Vertraulich",
+        "rarity_ancient": "Verdeckt",
+
+        "available_in_crates": "Verfügbar in Kisten"
+    },
+    "ru": {
+        "search": "Поиск",
+
+        "all_weapons": "Bce оружие",
+        "pistols": "Пистолеты",
+        "rifles": "Винтовки",
+        "smgs": "ПП",
+        "heavy": "Тяжелое",
+        "gloves": "Перчатки",
+        "knives": "Ножи",
+
+        "any": "Любая команда",
+        "both_teams": "Обе команды",
+        "counter-terrorists": "Спецназ",
+        "terrorists": "Террористы",
+
+        "stattrak": "Статтрак",
+        "souvenir": "Cyвeниp",
+
+        "rarity": "Редкость",
+        "rarity_common": "Ширпотреб",
+        "rarity_uncommon": "Промышленное качество",
+        "rarity_rare": "Армейское качество",
+        "rarity_mythical": "Запрещённое",
+        "rarity_legendary": "Засекреченное",
+        "rarity_ancient": "Тайное",
+
+        "available_in_crates": "Доступно в ящиках"
+    }
+}
