@@ -1,0 +1,105 @@
+html, body {
+    margin: 0;
+    padding: 0;
+
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #FFFDF2;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+    height: 45px;
+    background-image: linear-gradient(90deg, #FFE990, #D2C075);
+    color: #5B5B00;
+    display: flex;
+    justify-content: space-between;
+    z-index: 1;
+}
+
+nav img {
+    height: 100%;
+
+    transition: 200ms;
+}
+
+nav img:hover {
+    scale: 105%;
+}
+
+nav .links {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-right: 15px;
+    font-size: 24px;
+}
+
+nav .links a {
+    color: #5B5B00;
+    text-decoration: none;
+
+    transition: 200ms;
+}
+
+nav .links a:hover {
+    text-decoration: dotted underline;
+    scale: 105%;
+}
+
+main {
+    margin-top: 10px;
+    width: 99.9%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+main #firstImage {
+    width: 50%;
+    border-radius: 35px;
+    box-shadow: 5px 5px 10px 2px rgb(53, 53, 53);
+}
+
+section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+section h1 {
+    width: 99.8%;
+    text-align: center;
+    padding: 2px;
+    font-size: 64px;
+    color: #D7C500;
+    background-image: linear-gradient(90deg, #fffbe1, #fff9d4);
+}
+
+section p {
+    width: 80%;
+    margin: 0;
+    padding: 0;
+    font-size: 24px;
+    white-space: pre-line;
+}
+
+.HIDDEN {
+    opacity: 0;
+    transform: translateX(-100%);
+    filter: blur(0.2rem);
+}
+
+.SHOW {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateX(0);
+
+    transition: all 1s;
+}
