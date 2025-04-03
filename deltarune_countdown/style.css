@@ -1,0 +1,8 @@
+body {
+    background-color: black;
+    background-image: url(Deltarune.gif);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
