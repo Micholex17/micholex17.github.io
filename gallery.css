@@ -1,0 +1,55 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #FFFDF2;
+}
+
+a {
+    color: #5B5B00;
+    text-decoration: none;
+    font-size: 32px;
+    margin: 5px;
+}
+
+.focus_image {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.focus_image img {
+    width: 80%;
+    max-height: 80%;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-bottom: 5rem;
+}
+
+main img {
+    width: 25vw;
+    max-height: 500px;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 480px) {
+    main img {
+        width: 45vw;
+        max-height: 150px;
+    }
+}
+
+.hidden {
+    display: none;
+}

@@ -1,3 +1,5 @@
+const LINKS = document.querySelector(".links");
+
 const observer = new IntersectionObserver( (entries) => {
     entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -7,6 +9,10 @@ const observer = new IntersectionObserver( (entries) => {
         }*/
     })
 })
+
+function toggleLinksMenu() {
+    LINKS.classList.toggle("mobile_hidden");
+}
 
 const hiddenElements = document.querySelectorAll(".HIDDEN")
 

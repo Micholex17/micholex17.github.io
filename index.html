@@ -10,12 +10,13 @@
     <div class="container">
         <nav>
             <a href="#"><img src="images/logo.png"></a>
-            <div class="links">
+            <div class="links mobile_hidden">
                 <a href="#about">O nas</a>
-                <a href="#">Usługi</a>
-                <a href="#">Galeria</a>
-                <a href="#">Kontakt</a>
+                <a href="#services">Usługi</a>
+                <a href="#gallery">Galeria</a>
+                <a href="#contact">Kontakt</a>
             </div>
+            <a id="menu_button" onclick="toggleLinksMenu()"><img src="images/hamburger-svgrepo-com.svg" alt="Menu"></a>
         </nav>
         <main>
             <section>
@@ -24,14 +25,47 @@
             </section>
             <section id="about">
                 <h1>O nas</h1>
-                <p class="HIDDEN">
-                    Złotnik z dyplomem czeladniczym przerabia i naprawia złoto i srebro.
+                <p class="HIDDEN">Złotnik z dyplomem czeladniczym przerabia i naprawia złoto i srebro.
+
                     Ponadto wykonuje naprawy złotej, srebrnej i stalowej biżuterii. Także naprawia różne przedmioty o małych wymiarach, m. in. okulary, perły, korale i inne.
+
                     Szybkie terminy wykonania obrączek oraz napraw: powiększenie, zmniejszenie obrączek-pierścionków w większości na poczekaniu.
                     Przecinanie obrączek-pierścionków na palcu bez uszkodzeń.
                 </p>
             </section>
+            <section id="services">
+                <h1>Usługi</h1>
+                <ul class="HIDDEN">
+                    <li>... - #,##zł</li>
+                    <li>... - #,##zł</li>
+                    <li>... - #,##zł</li>
+                </ul>
+            </section>
+            <section id="gallery">
+                <h1>Galeria</h1>
+                <div class="HIDDEN gallery_images">
+                    <img src="images/image0.jpg">
+                    <img src="images/image1.jpg">
+                    <img src="images/image2.jpg">
+                    <img src="images/image3.jpg">
+                </div>
+                <a href="gallery.html" class="HIDDEN">Więcej...</a>
+            </section>
+            <section id="contact">
+                <h1>Kontakt</h1>
+                <iframe class="HIDDEN" src="https://www.google.com/maps/embed?pb=!4v1744634417543!6m8!1m7!1svwHmv5BpDVk9mM06Tp7z_g!2m2!1d51.85788395564231!2d19.39085208952351!3f297.05111136441855!4f0.11954854084976319!5f2.8422439611088075" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <p class="HIDDEN">ul. Tuwima 10, Zgierz
+                    601-752-738
+                    gold-core@hotmail.com
+                </p>
+            </section>
         </main>
+        <footer>
+            <div class="social_links">
+                <a target="_blank" href="https://www.facebook.com/profile.php?id=100069975845138"><img src="images/Facebook_Logo_Primary.png" alt="Facebook" class="logo"></a>
+                <a target="_blank" href="https://www.facebook.com/profile.php?id=100069975845138"><img src="images/Facebook_Logo_Primary.png" alt="Facebook" class="logo"></a>
+            </div>
+        </footer>
     </div>
 
     <script src="script.js"></script>
