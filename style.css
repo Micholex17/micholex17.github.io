@@ -78,6 +78,7 @@ section {
     align-items: center;
     gap: 50px;
     overflow-y: hidden;
+    overflow-x: hidden;
 }
 
 section h1 {
